@@ -38,6 +38,7 @@ export class PizzasComponent implements OnInit {
 
   removePizza(pizza: Pizza) {
     this.pizzasFacade.deletePizza(pizza);
+    this.reset();
   }
 
   reset() {

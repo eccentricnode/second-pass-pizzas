@@ -4,14 +4,14 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-
+import { reducers } from '.';
 import { PizzasEffects } from './pizzas/pizzas.effects';
 import { PizzasFacade } from './pizzas/pizzas.facade';
 
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([PizzasEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 10

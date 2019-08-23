@@ -9,7 +9,10 @@
 
     <div class="details-grid">
         <second-pass-pizza-details
-            >
+            [group]="form"
+            [pizza]="selectedPizza$ | async"
+            (submitted)="savePizza($event)"
+            (cancelled)="reset($event)">
         </second-pass-pizza-details>
     </div>
 </div>

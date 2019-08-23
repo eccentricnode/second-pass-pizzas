@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createEffect, Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 import { map } from 'rxjs/operators';
 
@@ -13,6 +13,7 @@ import {
   UpdatePizza,
   PizzaUpdated,
   DeletePizza,
+  PizzaDeleted,
 } from './pizzas.actions';
 import { PizzasService, Pizza } from '@second-pass/core-data';
 
@@ -20,7 +21,7 @@ import { PizzasService, Pizza } from '@second-pass/core-data';
 export class PizzasEffects {
   @Effect() loadPizzas$ = this.dataPersistence.fetch(PizzasActionTypes.LOAD_PIZZAS, {
     run: (action: LoadPizzas, state: PizzasState) => {
-      this.pizzasService.all().pipe(map((res: Pizza[]) => new PizzasLoaded(res)));
+      return this.pizzasService.all().pipe(map((res: Pizza[]) => new PizzasLoaded(res)));
     },
 
     onError: (action: LoadPizzas, error) => {
@@ -30,7 +31,7 @@ export class PizzasEffects {
 
   @Effect() addPizza$ = this.dataPersistence.pessimisticUpdate(PizzasActionTypes.ADD_PIZZA, {
     run: (action: AddPizza, state: PizzasState) => {
-      this.pizzasService.create(action.payload).pipe(map((res: Pizza) => new PizzaAdded(res)));
+      return this.pizzasService.create(action.payload).pipe(map((res: Pizza) => new PizzaAdded(res)));
     },
 
     onError: (action: AddPizza, error) => {
@@ -40,7 +41,7 @@ export class PizzasEffects {
 
   @Effect() updatePizza$ = this.dataPersistence.pessimisticUpdate(PizzasActionTypes.UPDATE_PIZZA, {
     run: (action: UpdatePizza, state: PizzasState) => {
-      this.pizzasService.update(action.payload).pipe(map((res: Pizza) => new PizzaUpdated(res)));
+      return this.pizzasService.update(action.payload).pipe(map((res: Pizza) => new PizzaUpdated(res)));
     },
 
     onError: (action: UpdatePizza, error) => {
@@ -48,9 +49,9 @@ export class PizzasEffects {
     }
   });
 
-  @Effect() deletePizza$ = this.dataPersistence.pessimisticUpdate(PizzasActionTypes.UPDATE_PIZZA, {
+  @Effect() deletePizza$ = this.dataPersistence.pessimisticUpdate(PizzasActionTypes.DELETE_PIZZA, {
     run: (action: DeletePizza, state: PizzasState) => {
-      this.pizzasService.delete(action.payload).pipe(map((res: Pizza) => new PizzaUpdated(res)));
+      return this.pizzasService.delete(action.payload.id).pipe(map(_ => new PizzaDeleted(action.payload)));
     },
 
     onError: (action: DeletePizza, error) => {

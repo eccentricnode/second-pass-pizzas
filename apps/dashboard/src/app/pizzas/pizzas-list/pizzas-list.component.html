@@ -1,12 +1,12 @@
 <mat-card>
     <mat-card-content>
         <h3 mat-subheader>Pizza's</h3>
-        <mat-list *ngIf="pizzas.length; else elseBlock">
+        <mat-list >
             <mat-list-item *ngFor="let pizza of pizzas" class="mat-list-option"
                 (click)="select(pizza)">
                 <h4 mat-line>Name: {{pizza.name}}</h4>
-                <span mat-line>Team: {{pizza.mainTopping}}</span>
-                <button mat-mini-fab *ngIf="!readonly" (click)="remove(pizza);$event.stopImmediate.Propagation()">
+                <span mat-line>Main Topping: {{pizza.mainTopping}}</span>
+                <button mat-mini-fab *ngIf="!readonly" (click)="remove(pizza);$event.stopImmediatePropagation()">
                     <mat-icon>clear</mat-icon>
                 </button>
             </mat-list-item>
