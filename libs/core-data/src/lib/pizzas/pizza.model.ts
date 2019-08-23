@@ -3,7 +3,7 @@ export interface Pizza {
     name: string,
     calories: number,
     mainTopping: string,
-    secondTopping: string
+    secondaryTopping: string
 }
 
 export const emptyPizza: Pizza = {
@@ -11,5 +11,5 @@ export const emptyPizza: Pizza = {
     name: '',
     calories: null,
     mainTopping: '',
-    secondTopping: '',
+    secondaryTopping: '',
 }

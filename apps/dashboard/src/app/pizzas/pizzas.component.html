@@ -1,0 +1,15 @@
+<div class="wrapper">
+    <div class="list-grid">
+        <second-pass-pizzas-list
+            [pizzas]="pizzas$ | async"
+            (selected)="selectPizza($event)"
+            (deleted)="removePizza($event)">
+        </second-pass-pizzas-list>
+    </div>
+
+    <div class="details-grid">
+        <second-pass-pizza-details
+            >
+        </second-pass-pizza-details>
+    </div>
+</div>
